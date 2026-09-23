@@ -22,28 +22,29 @@ namespace Codes.Network.Match
     [RequireComponent(typeof(NetworkObject))]
     public class MatchmakingSystem : NetworkBehaviour
     {
-        public static MatchmakingSystem Instance { private set; get; }
-
         private NetworkObject networkObject;
         private GameState gameState;
 
+        // -- Singleton --
+        public static MatchmakingSystem Instance { private set; get; }
+        
         private void Awake()
         {
-            // Singleton >>>
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
-                Instance = this;
+                return;
             }
-            // <<< Singleton
 
+            Instance = this;
+        }
+        //  --  --  --  --
+        
+        private void Start()
+        {
             networkObject = GetComponent<NetworkObject>();
 
             networkObject.DestroyWithScene = false;
-        }
-
-        private void Start()
-        {
             gameState = GameState.None;
         }
 

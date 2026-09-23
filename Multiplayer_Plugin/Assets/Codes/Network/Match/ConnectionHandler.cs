@@ -16,7 +16,7 @@ namespace Codes.Network.Match
         private NetworkManager networkManager;
         private NetworkObject networkObject;
         
-        private void Awake()
+        private void Start()
         {
             networkManager = NetworkManager.Singleton;
             networkObject = GetComponent<NetworkObject>();
